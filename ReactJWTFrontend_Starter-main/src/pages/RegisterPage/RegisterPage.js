@@ -10,7 +10,7 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    prospectiveEmployee: "",
+    prospectiveEmployee: false,
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     registerUser,
@@ -68,8 +68,8 @@ const RegisterPage = () => {
         <label>
           Prosceptive Employee: {" "}
           <input
-          type="text"
-          name="prosceptiveEmployee"
+          type="checkbox"
+          name="prospectiveEmployee"
           value={formData.prospectiveEmployee}
           onChange={handleInputChange}
           />

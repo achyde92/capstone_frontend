@@ -1,9 +1,12 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 const RegisterVehiclePage = () => {
   const isProspectiveEmployee = localStorage.getItem("prospectiveEmployee") === "Yes";
 
-  if (isProspectiveEmployee) {
+  if (!isProspectiveEmployee) {
+    return <Redirect to="/" />;
+  }
     return (
       <div>
         <h1>Vehicle Registration</h1>
@@ -32,9 +35,6 @@ const RegisterVehiclePage = () => {
       </div>
     );
   }
-  return <Redirect to "/HomePage" />
-
-  );
 };
 
 export default RegisterVehiclePage;
