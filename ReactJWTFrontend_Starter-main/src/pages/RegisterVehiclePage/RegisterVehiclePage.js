@@ -1,20 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-
 
 const RegisterVehiclePage = () => {
-  const isProspectiveEmployee = localStorage.getItem("prospectiveEmployee") === "Yes";
-  const navigate = useNavigate();
-
-  if (!isProspectiveEmployee) {
-    navigate("/");
-    return null;
-  }
     return (
       <div>
         <h1>Vehicle Registration</h1>
-        {
-            isProspectiveEmployee && (
+        {(
                 <div>
                   <label>
                     Make:{" "}

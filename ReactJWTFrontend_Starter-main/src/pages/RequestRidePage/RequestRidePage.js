@@ -41,7 +41,7 @@ const RequestRide = () => {
         </label>
         <label>
         <input
-            type="text"
+            type="date"
             name="Date"
             value={formData.date}
             onChange={handleInputChange}
@@ -49,7 +49,7 @@ const RequestRide = () => {
         </label>
         <label>
         <input
-            type="text"
+            type="time"
             name="Pickup Time"
             value={formData.time}
             onChange={handleInputChange}
