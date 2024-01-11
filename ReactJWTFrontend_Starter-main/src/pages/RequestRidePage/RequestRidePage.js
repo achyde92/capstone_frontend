@@ -3,7 +3,7 @@ import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import GoogleMapComponent from "../../components/GoogleMaps/GoogleMaps";
 
-const RequestRide = () => {
+const RequestRidePage = () => {
   const { makeRideRequest } = useContext(AuthContext);
 
   const requestInfo = {
@@ -11,7 +11,8 @@ const RequestRide = () => {
     endLocation: { lat: 0, lng: 0 },
     date: "",
     time: "",
-};
+    wheelchairAccess: "",
+  };
 
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     makeRideRequest,
@@ -23,7 +24,8 @@ const RequestRide = () => {
     const location = {
       lat: latLng.lat(),
       lng: latLng.lng(),
-    };
+    };}
+
 
   return (
     <div className="container">
@@ -61,9 +63,14 @@ const RequestRide = () => {
             onChange={handleInputChange}
           />
         </label>
+        <label>
+            Wheelchair Accessible:{" "}
+             <input type="checkbox" name="wheelchairAccessible" />
+        </label>
         <button type="submit">Request Ride</button>
       </form>
     </div>
   );
-}};
-export default RequestRide;
+};
+
+export default RequestRidePage;
