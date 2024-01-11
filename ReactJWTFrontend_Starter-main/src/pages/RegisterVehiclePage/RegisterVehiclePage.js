@@ -1,11 +1,14 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const RegisterVehiclePage = () => {
   const isProspectiveEmployee = localStorage.getItem("prospectiveEmployee") === "Yes";
+  const navigate = useNavigate();
 
   if (!isProspectiveEmployee) {
-    return <Redirect to="/" />;
+    navigate("/");
+    return null;
   }
     return (
       <div>
@@ -35,6 +38,5 @@ const RegisterVehiclePage = () => {
       </div>
     );
   }
-};
 
 export default RegisterVehiclePage;
