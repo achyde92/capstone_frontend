@@ -1,21 +1,29 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
+import GoogleMapComponent from "../../components/GoogleMaps/GoogleMaps";
 
 const RequestRide = () => {
   const { makeRideRequest } = useContext(AuthContext);
 
   const requestInfo = {
-    startLocation: "",
-    endLocation: "",
+    startLocation: { lat: 0, lng: 0 },
+    endLocation: { lat: 0, lng: 0 },
     date: "",
     time: "",
-  };
+};
 
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     makeRideRequest,
     requestInfo
   );
+
+  const handleMapClick = (e) => {
+    const { latLng } = e;
+    const location = {
+      lat: latLng.lat(),
+      lng: latLng.lng(),
+    };
 
   return (
     <div className="container">
@@ -23,34 +31,32 @@ const RequestRide = () => {
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Start Location:
-          <input
-            type="text"
-            name="startLocation"
-            value={formData.startLocation}
-            onChange={handleInputChange}
+          <GoogleMapComponent
+            location={formData.startLocation}
+            onMapClick={handleMapClick}
           />
         </label>
         <label>
           End Location:
-          <input
-            type="text"
-            name="endLocation"
-            value={formData.endLocation}
-            onChange={handleInputChange}
+          <GoogleMapComponent
+            location={formData.endLocation}
+            onMapClick={handleMapClick}
           />
         </label>
         <label>
-        <input
+          Date:
+          <input
             type="date"
-            name="Date"
+            name="date"
             value={formData.date}
             onChange={handleInputChange}
           />
         </label>
         <label>
-        <input
+          Pickup Time:
+          <input
             type="time"
-            name="Pickup Time"
+            name="time"
             value={formData.time}
             onChange={handleInputChange}
           />
@@ -59,6 +65,5 @@ const RequestRide = () => {
       </form>
     </div>
   );
-};
-
+}};
 export default RequestRide;
