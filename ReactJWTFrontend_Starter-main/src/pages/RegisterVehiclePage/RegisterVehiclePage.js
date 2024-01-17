@@ -21,7 +21,7 @@ const RegisterVehiclePage = () => {
 
   const handleRegisterVehicle = async () => {
     try {
-      const response = await axios.post("http://localhost:5001/api/registervehicle", vehicleInfo);
+      const response = await axios.post("https://localhost:5001/api/vehicle", vehicleInfo);
       console.log("Vehicle registered successfully:", response.data);
     } catch (error) {
       console.error("Error registering the vehicle:", error);

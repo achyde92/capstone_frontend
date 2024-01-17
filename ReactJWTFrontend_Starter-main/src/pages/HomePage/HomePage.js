@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import RequestRideList from "../RequestRidePage/RequestRideList";
 
 import axios from "axios";
 
@@ -37,6 +38,7 @@ const HomePage = () => {
             {car.year} {car.model} {car.make}
           </p>
         ))}
+        <RequestRideList></RequestRideList>
     </div>
   );
 };

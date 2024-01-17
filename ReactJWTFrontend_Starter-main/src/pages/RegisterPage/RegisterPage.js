@@ -5,17 +5,19 @@ import useCustomForm from "../../hooks/useCustomForm";
 const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
-    username: "",
+    userName: "",
     email: "",
     password: "",
     firstName: "",
     lastName: "",
-    prospectiveEmployee: false,
+    IsEmployee: false,
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     registerUser,
     defaultValues
   );
+
+  console.log("Form Data", formData);
 
   return (
     <div className="container">
@@ -66,11 +68,11 @@ const RegisterPage = () => {
           />
         </label>
         <label>
-          Prosceptive Employee: {" "}
+          Prospective Employee: {" "}
           <input
           type="checkbox"
-          name="prospectiveEmployee"
-          value={formData.prospectiveEmployee}
+          name="IsEmployee"
+          value={formData.IsEmployee}
           onChange={handleInputChange}
           />
         </label>

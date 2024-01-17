@@ -6,11 +6,6 @@ const containerStyle = {
   height: "400px",
 };
 
-const center = {
-  lat: 0, 
-  lng: 0, 
-};
-
 const GoogleMapComponent = ({ location, onMapClick }) => {
   return (
     <LoadScript googleMapsApiKey="AIzaSyBSnHXSSYqrU5nm3kXBj8qVkkTLsmMrRvw">
@@ -20,10 +15,15 @@ const GoogleMapComponent = ({ location, onMapClick }) => {
         zoom={10}
         onClick={onMapClick}
       >
-        <Marker position={location} />
+        <Marker
+          position={location}
+          onClick={() => {
+          }}
+        />
       </GoogleMap>
     </LoadScript>
   );
 };
 
 export default GoogleMapComponent;
+

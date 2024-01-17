@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import GoogleMapComponent from "../../components/GoogleMaps/GoogleMaps";
 
 const RequestRidePage = () => {
   const { makeRideRequest } = useContext(AuthContext);
+  const [error, setError] = useState(null);
 
-  const requestInfo = {
+  const initialValues = {
     startLocation: { lat: 0, lng: 0 },
     endLocation: { lat: 0, lng: 0 },
     date: "",
     time: "",
-    wheelchairAccess: "",
+    wheelchairAccessible: false,
   };
 
-  const [formData, handleInputChange, handleSubmit] = useCustomForm(
+  const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
     makeRideRequest,
-    requestInfo
+    initialValues
   );
 
   const handleMapClick = (e) => {
@@ -24,8 +26,31 @@ const RequestRidePage = () => {
     const location = {
       lat: latLng.lat(),
       lng: latLng.lng(),
-    };}
+    };
+    handleInputChange({
+      target: {
+        name: "startLocation",
+        value: location,
+      },
+    });
+  };
 
+  const handleRequestSubmission = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:5001/api/riderequest",
+        formData
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error(
+        "Error submitting request:",
+        error.response ? error.response.data : error.message
+      );
+      setError("Error submitting request. Please try again.");
+    }
+  };
 
   return (
     <div className="container">
@@ -64,8 +89,13 @@ const RequestRidePage = () => {
           />
         </label>
         <label>
-            Wheelchair Accessible:{" "}
-             <input type="checkbox" name="wheelchairAccessible" />
+          Wheelchair Accessible:{" "}
+          <input
+            type="checkbox"
+            name="wheelchairAccessible"
+            checked={formData.wheelchairAccessible}
+            onChange={handleInputChange}
+          />
         </label>
         <button type="submit">Request Ride</button>
       </form>
@@ -74,3 +104,4 @@ const RequestRidePage = () => {
 };
 
 export default RequestRidePage;
+
