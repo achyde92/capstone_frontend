@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import GoogleMapComponent from "../../components/GoogleMaps/GoogleMaps";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth"
 
 const RequestRidePage = () => {
-  const { makeRideRequest } = useContext(AuthContext);
+  const [user, token] = useAuth();
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const initialValues = {
     startLocation: { lat: 0, lng: 0 },
@@ -16,32 +18,19 @@ const RequestRidePage = () => {
     wheelchairAccessible: false,
   };
 
-  const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
-    makeRideRequest,
-    initialValues
-  );
-
-  const handleMapClick = (e) => {
-    const { latLng } = e;
-    const location = {
-      lat: latLng.lat(),
-      lng: latLng.lng(),
-    };
-    handleInputChange({
-      target: {
-        name: "startLocation",
-        value: location,
-      },
-    });
-  };
-
   const handleRequestSubmission = async () => {
     try {
+
+      console.log("FormData:", formData);
       const response = await axios.post(
         "https://localhost:5001/api/riderequest",
-        formData
-      );
-
+          formData,
+          {
+            headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        navigate("/");
       console.log(response.data);
     } catch (error) {
       console.error(
@@ -50,6 +39,25 @@ const RequestRidePage = () => {
       );
       setError("Error submitting request. Please try again.");
     }
+  };
+  
+  const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
+    handleRequestSubmission,
+    initialValues
+  );
+
+  const handleMapClick = (e) => {
+    const { latLng } = e;
+    const location = {
+      latitude: latLng.lat(),
+      longitude: latLng.lng(),
+    };
+    handleInputChange({
+      target: {
+        name: "startLocation",
+        value: location,
+      },
+    });
   };
 
   return (

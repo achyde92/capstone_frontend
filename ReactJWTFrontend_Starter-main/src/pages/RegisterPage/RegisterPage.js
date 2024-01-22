@@ -5,11 +5,11 @@ import useCustomForm from "../../hooks/useCustomForm";
 const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
-    userName: "",
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
+    UserName: "",
+    Email: "",
+    Password: "",
+    FirstName: "",
+    LastName: "",
     IsEmployee: false,
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
@@ -26,8 +26,8 @@ const RegisterPage = () => {
           Username:{" "}
           <input
             type="text"
-            name="username"
-            value={formData.username}
+            name="UserName"
+            value={formData.UserName}
             onChange={handleInputChange}
           />
         </label>
@@ -35,8 +35,8 @@ const RegisterPage = () => {
           First Name:{" "}
           <input
             type="text"
-            name="firstName"
-            value={formData.firstName}
+            name="FirstName"
+            value={formData.FirstName}
             onChange={handleInputChange}
           />
         </label>
@@ -44,8 +44,8 @@ const RegisterPage = () => {
           Last Name:{" "}
           <input
             type="text"
-            name="lastName"
-            value={formData.lastName}
+            name="LastName"
+            value={formData.LastName}
             onChange={handleInputChange}
           />
         </label>
@@ -53,17 +53,17 @@ const RegisterPage = () => {
           Email:{" "}
           <input
             type="text"
-            name="email"
-            value={formData.email}
+            name="Email"
+            value={formData.Email}
             onChange={handleInputChange}
           />
         </label>
         <label>
           Password:{" "}
           <input
-            type="password"
-            name="password"
-            value={formData.password}
+            type="Password"
+            name="Password"
+            value={formData.Password}
             onChange={handleInputChange}
           />
         </label>

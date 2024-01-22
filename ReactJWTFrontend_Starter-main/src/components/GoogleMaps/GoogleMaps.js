@@ -7,6 +7,8 @@ const containerStyle = {
 };
 
 const GoogleMapComponent = ({ location, onMapClick }) => {
+  console.log("Location prop:", location);
+
   return (
     <LoadScript googleMapsApiKey="AIzaSyBSnHXSSYqrU5nm3kXBj8qVkkTLsmMrRvw">
       <GoogleMap
@@ -17,8 +19,7 @@ const GoogleMapComponent = ({ location, onMapClick }) => {
       >
         <Marker
           position={location}
-          onClick={() => {
-          }}
+          onClick={() => {}}
         />
       </GoogleMap>
     </LoadScript>
