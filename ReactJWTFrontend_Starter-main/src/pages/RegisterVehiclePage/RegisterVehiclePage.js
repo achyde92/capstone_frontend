@@ -21,7 +21,13 @@ const RegisterVehiclePage = () => {
 
   const handleRegisterVehicle = async () => {
     try {
-      const response = await axios.post("https://localhost:5001/api/vehicle", vehicleInfo);
+      const token = JSON.parse(localStorage.getItem("token"));
+      
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await axios.post("https://localhost:5001/api/vehicle", vehicleInfo, { headers });
       console.log("Vehicle registered successfully:", response.data);
     } catch (error) {
       console.error("Error registering the vehicle:", error);

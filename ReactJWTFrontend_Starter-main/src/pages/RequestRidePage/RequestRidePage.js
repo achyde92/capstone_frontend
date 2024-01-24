@@ -14,13 +14,14 @@ const RequestRidePage = () => {
     startLocation: { lat: 0, lng: 0 },
     endLocation: { lat: 0, lng: 0 },
     date: "",
-    time: "",
+    time: "00:00:00",
+    status: "Pending",
+    isAccepted: false,
     wheelchairAccessible: false,
   };
 
   const handleRequestSubmission = async () => {
     try {
-
       console.log("FormData:", formData);
       const response = await axios.post(
         "https://localhost:5001/api/riderequest",
