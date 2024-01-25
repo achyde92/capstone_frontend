@@ -8,7 +8,7 @@ const RequestRideList = () => {
   const [user, token] = useAuth();
   const [requestedRides, setRequestedRides] = useState([
     {
-      id: "",
+      id: 4,
       startLocation: "",
       endLocation: "",
       date: "",
@@ -34,7 +34,7 @@ const RequestRideList = () => {
       setAcceptedRides((prevAcceptedRides) => [...prevAcceptedRides, acceptedRide]);
   
       const response = await axios.post(
-        `https://localhost:5001/api/riderequests/accept/${rideId}`,
+        `https://localhost:5001/api/riderequest/accept/${rideId}`,
         null,
         {
           headers: {
