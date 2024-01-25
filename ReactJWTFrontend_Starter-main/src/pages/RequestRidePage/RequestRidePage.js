@@ -4,6 +4,7 @@ import useCustomForm from "../../hooks/useCustomForm";
 import GoogleMapComponent from "../../components/GoogleMaps/GoogleMaps";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth"
+import { format } from "date-fns";
 
 const RequestRidePage = () => {
   const [user, token] = useAuth();
@@ -13,8 +14,8 @@ const RequestRidePage = () => {
   const initialValues = {
     startLocation: { lat: 0, lng: 0 },
     endLocation: { lat: 0, lng: 0 },
-    date: "",
-    time: "00:00:00",
+    date: new Date().toISOString().split('T')[0],
+    time: format(new Date(), "HH:mm:ss"),
     status: "Pending",
     isAccepted: false,
     wheelchairAccessible: false,

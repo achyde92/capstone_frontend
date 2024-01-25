@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; 
 import React, { useState, useEffect } from 'react';
+import useAuth from "../../hooks/useAuth"
+
 
 const RequestRideList = () => {
+  const [user, token] = useAuth();
   const [requestedRides, setRequestedRides] = useState([
     {
       id: "",
@@ -16,19 +19,35 @@ const RequestRideList = () => {
 
   const [acceptedRides, setAcceptedRides] = useState([]);
   const [completedRides, setCompletedRides] = useState([]);
-
   const navigate = useNavigate();
 
   const handleAcceptRide = async (rideId) => {
     try {
       const acceptedRide = requestedRides.find((ride) => ride.id === rideId);
-      setAcceptedRides((prevAcceptedRides) => [...prevAcceptedRides, { ...acceptedRide }]);
-      setRequestedRides((prevRequestedRides) => prevRequestedRides.filter((ride) => ride.id !== rideId));
-
-      await axios.post(`https://localhost:5001/api/riderequests/accept/${rideId}`);
-
+  
+      console.log("Accepted Ride:", acceptedRide);
+  
+      setRequestedRides((prevRequestedRides) =>
+        prevRequestedRides.filter((ride) => ride.id !== rideId)
+      );
+  
+      setAcceptedRides((prevAcceptedRides) => [...prevAcceptedRides, acceptedRide]);
+  
+      const response = await axios.post(
+        `https://localhost:5001/api/riderequests/accept/${rideId}`,
+        null,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log("Accept Ride Response:", response.data);
     } catch (error) {
-      console.error("Error accepting ride:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error accepting ride:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
